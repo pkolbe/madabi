@@ -26,7 +26,7 @@ SOURCE_COLOR_MAP = {
 # ---------- Data Loading ----------
 def load_and_prepare_data(path):
     df = pd.read_csv(path)
-    df['Year'] = pd.to_numeric(df['Year'], errors='coerce').astype('Int64')
+    df['Year'] = pd.to_numeric(df['Year'], errors='coerce').dropna().astype('Int64')
     df['Source_clean'] = df['Source'].fillna('Unknown').astype(str).str.strip()
     df.loc[df['Source_clean'] == '', 'Source_clean'] = 'Unknown'
     df['Affiliations_clean'] = df['Affiliations'].fillna('').replace({
